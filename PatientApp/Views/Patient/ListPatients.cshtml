@@ -1,0 +1,76 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<Patient>
+@{
+}
+
+@*<div class="col-sm-9 text-secondary">
+        Search:
+        <input type="text" id="search_value" value="">
+        <button id="search" class="btn btn-dark">Search</button>
+    </div>*@
+@using (Html.BeginForm("ListPatients", "Patient", FormMethod.Post))
+{
+<p>
+    Search : @Html.TextBox("searchval")
+    <button class="btn btn-primary" type="submit" value="Search">Search</button>
+    <button class="btn btn-danger" type="button" id="searchcancel">Clear</button>
+    <button class="btn btn-dark float-right" type="button" id="addpatient">Add Patient</button>
+</p>
+}
+<div class="table-responsive-lg table-wrapper-scroll-y my-custom-scrollbar">
+    <table class="table table-dark table-hover table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Surname</th>
+                <th scope="col">Social Security Number</th>
+                <th scope="col">Address</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">E-Mail</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Birth Date</th>
+                <th scope="col">Age</th>
+                <th scope="col">Height</th>
+                <th scope="col">Weight</th>
+                <th scope="col">Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.id</td>
+                    <td>@item.name</td>
+                    <td>@item.surname</td>
+                    <td>@item.ssnumber</td>
+                    <td>@item.address</td>
+                    <td>@item.phone_number</td>
+                    <td>@item.email</td>
+                    @if (item.gender == 0)
+                    {
+                        <td>Erkek</td>
+                    }
+                    else
+                    {
+                        <td>Kadın</td>
+                    }
+                    <td>@item.birth_date</td>
+                    <td>@item.age</td>
+                    <td>@item.height</td>
+                    <td>@item.weight</td>
+                    <td><button onclick="editItem(@item.id)">Edit</button><button onclick="viewItem(@item.id)">View</button><button onclick="removeItem(@item.id)">Remove</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+@section Scripts{
+    <script src="~/js/listpatients.js"></script>
+}
+
+

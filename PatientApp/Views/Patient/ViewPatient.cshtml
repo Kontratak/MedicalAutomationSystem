@@ -1,0 +1,251 @@
+﻿@model Patient
+<div class="container-fluid">
+    <div class="main-body">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="ListPatients">Patients</a></li>
+                <li class="breadcrumb-item active " aria-current="page">Patient Profile</li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">@Model.name @Model.surname</a></li>
+            </ol>
+        </nav>
+        <!-- /Breadcrumb -->
+
+        <div class="row gutters-sm">
+            <div class="col-md-3 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            @if (Model.gender == 0)
+                            {
+                                <img src="~/images/man.png" alt="Admin" class="rounded-circle" width="150" />
+                            }
+                            else
+                            {
+                                <img src="~/images/woman.png" alt="Admin" class="rounded-circle" width="150" />
+                            }
+                            <div class="mt-3">
+                                <h4>@Model.name @Model.surname</h4>
+                                <p class="text-secondary mb-1">@Model.ssnumber</p>
+                                <p class="text-muted font-size-sm">@Model.address</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0">Diagnoses</h6>
+                        </li>
+                        @foreach (var item in Model.diagnoses)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0">@item.diagnose</h6>
+                                <span class="text-secondary"><button class="btn btn-primary" onclick="getDiagnoseView(@item.id)">Details</button></span>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Name</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Model.name
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Surname</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Model.surname
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Social Security Number</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Model.ssnumber
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Phone</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Model.phone_number
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Address</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Model.address
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Age</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Model.age
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Height</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Model.height
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Weight</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Model.weight
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Birth Date</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Model.birth_date
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">E-Mail</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Model.email
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Gender</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @if (Model.gender == 0)
+                                {
+                                    <p>Erkek</p>
+                                }
+                                else
+                                {
+                                    <p>Kadın</p>
+                                }
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button class="btn btn-dark" onclick="editItem(@Model.id)">Edit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0">Visits</h6>
+                        </li>
+                        @foreach (var item in Model.visits)
+                        {
+                            <li class="list-group-item">
+                                <div class="visit">
+                                    <p style="font-size:1.2rem">@item.date</p> <hr />@item.description
+                                </div>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="modal fade diagnosemodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="padding-top:100px">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Diagnose</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <table class="table table-light table-hover" id="tablediagnose" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Diagnose</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Experation Date</th>
+                            <th scope="col">Medicines</th>
+                        </tr>
+                    </thead>
+                    <tbody id="diagnosetbody">
+                        <tr>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade medicinemodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="padding-top:100px">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Medicines</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <table class="table table-light table-hover" id="tablemedicine" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Medicine Name</th>
+                            <th scope="col">Usage</th>
+                            <th scope="col">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody id="medicinesbody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+@section Scripts{
+    <script src="~/js/operations.js"></script>
+}
